@@ -93,10 +93,11 @@ func Problem2(rucksacksch chan string) int {
 }
 
 func main() {
+	inputpath := "files/day3/input.txt"
 	chP1 := make(chan string)
-	go shared.StreamFileLines(chP1, "src/go/day3/input.txt")
+	go shared.StreamFileLines(chP1, inputpath)
 	fmt.Println("Problem 1: ", Problem1(chP1))
 	chP2 := make(chan string)
-	go shared.StreamFileLines(chP2, "src/go/day3/input.txt")
+	go shared.StreamFileLines(chP2, inputpath)
 	fmt.Println("Problem 2: ", Problem2(chP2))
 }

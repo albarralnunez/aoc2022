@@ -82,12 +82,12 @@ func Problem2(ch chan string) int {
 }
 
 func main() {
-	input_path := "src/go/day2/input.txt"
+	inputpath := "files/day2/input.txt"
 	// input_path := "src/go/day2/test.txt"
 	chP1 := make(chan string)
-	go shared.StreamFileLines(chP1, input_path)
+	go shared.StreamFileLines(chP1, inputpath)
 	fmt.Println(Problem1(chP1))
 	chp2 := make(chan string)
-	go shared.StreamFileLines(chp2, input_path)
+	go shared.StreamFileLines(chp2, inputpath)
 	fmt.Println(Problem2(chp2))
 }

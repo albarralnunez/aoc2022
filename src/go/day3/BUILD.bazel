@@ -1,9 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
-exports_files([
-    "input.txt",
-])
-
 go_library(
     name = "day3_lib",
     srcs = ["main.go"],
@@ -14,9 +10,7 @@ go_library(
 
 go_binary(
     name = "day3",
-    data = [
-        "input.txt",
-    ],
+    data = ["//files/day3:input.txt"],
     embed = [":day3_lib"],
     visibility = ["//visibility:public"],
 )
@@ -24,8 +18,5 @@ go_binary(
 go_test(
     name = "day3_test",
     srcs = ["main_test.go"],
-    data = [
-        "test.txt",
-    ],
     embed = [":day3_lib"],
 )

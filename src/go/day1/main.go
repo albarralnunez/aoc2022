@@ -107,12 +107,13 @@ func Problem2(ch chan string) int {
 }
 
 func main() {
+	inputpath := "files/day1/input.txt"
 	chP1 := make(chan string)
-	go ReadFile(chP1, "src/go/day1/input.txt")
+	go ReadFile(chP1, inputpath)
 	problem1 := Problem1(chP1)
 	fmt.Println(problem1)
 	chP2 := make(chan string)
-	go ReadFile(chP2, "src/go/day1/input.txt")
+	go ReadFile(chP2, inputpath)
 	problem2 := Problem2(chP2)
 	fmt.Println(problem2)
 }
