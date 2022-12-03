@@ -1,0 +1,23 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
+
+buildifier(
+    name = "buildifier",
+)
+
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+# gazelle:prefix github.com/albarralnunez/aoc2022
+gazelle(name = "gazelle")
+
+# gazelle:prefix github.com/albarralnunez/aoc2022
+gazelle(
+    name = "gazelle-update-repos",
+    args = [
+        "-from_file=go.mod",
+        "-to_macro=deps.bzl%go_dependencies",
+        "-prune",
+    ],
+    command = "update-repos",
+)

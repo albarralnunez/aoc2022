@@ -1,0 +1,4 @@
+direnv 2.32.1
+golang 1.19
+bazel 5.3.2
+github-cli 2.9.0

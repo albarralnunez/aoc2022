@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "bazelbuild.vscode-bazel",
+        "hashicorp.terraform",
+        "github.copilot",
+        "eamodio.gitlens",
+        "ms-python.python",
+        "golang.go",
+        "GitHub.codespaces"
+    ]
+}

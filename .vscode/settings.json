@@ -1,0 +1,43 @@
+{
+    "files.exclude": {
+        "bazel-*": true,
+        ".direnv": true,
+    },
+
+    "search.exclude": {
+        "poetry.lock": true,
+    },
+    "go.goroot": "${workspaceFolder}/bazel-${workspaceFolderBasename}/external/go_sdk",
+    "go.toolsEnvVars": {
+      "GOPACKAGESDRIVER": "${workspaceFolder}/scripts/bazel/gopackagesdriver.sh"
+    },
+    "go.enableCodeLens": {
+      "references": false,
+      "runtest": false
+    },
+    "gopls": {
+      "build.directoryFilters": [
+        "-bazel-bin",
+        "-bazel-out",
+        "-bazel-testlogs",
+        "-bazel-mypkg",
+      ],
+      "formatting.gofumpt": true,
+      "formatting.local": "",
+      "ui.completion.usePlaceholders": true,
+      "ui.semanticTokens": true,
+      "ui.codelenses": {
+        "gc_details": false,
+        "regenerate_cgo": false,
+        "generate": false,
+        "test": false,
+        "tidy": false,
+        "upgrade_dependency": false,
+        "vendor": false
+      },
+    },
+    "go.useLanguageServer": true,
+    "go.buildOnSave": "off",
+    "go.lintOnSave": "off",
+    "go.vetOnSave": "off",
+}

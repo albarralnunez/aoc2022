@@ -1,0 +1,19 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+exports_files([
+    "input.txt",
+])
+
+go_library(
+    name = "day1_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/albarralnunez/aoc2022/src/go/day1",
+    visibility = ["//visibility:public"],
+)
+
+go_binary(
+    name = "day1",
+    data = ["input.txt"],
+    embed = [":day1_lib"],
+    visibility = ["//visibility:public"],
+)
