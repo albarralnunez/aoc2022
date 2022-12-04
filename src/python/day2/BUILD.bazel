@@ -1,0 +1,12 @@
+package(default_visibility = ["//visibility:public"])
+
+load("//tools/pytest:defs.bzl", "pytest_test")
+load("@rules_python//python:defs.bzl", "py_binary")
+
+
+py_binary(
+    legacy_create_init = False,
+    name = "day2",
+    srcs = ["day2.py"],
+    data = ["//files/day2:input.txt"],
+)

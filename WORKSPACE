@@ -2,6 +2,25 @@ workspace(name = "aoc2022")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# PYTHON
+
+http_archive(
+    name = "rules_python",
+    sha256 = "bc4e59e17c7809a5b373ba359e2c974ed2386c58634819ac5a89c0813c15705c",
+    strip_prefix = "rules_python-0.15.1",
+    url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/0.15.1.tar.gz",
+)
+
+load("@rules_python//python:pip.bzl", "pip_parse")
+pip_parse(
+    name = "py_deps",
+    requirements_lock = "//3rd_party/python:requirements.txt",
+)
+
+load("@py_deps//:requirements.bzl", "install_deps")
+
+install_deps()
+
 # GO
 http_archive(
     name = "io_bazel_rules_go",
@@ -26,9 +45,9 @@ http_archive(
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
-load("//:deps.bzl", "go_dependencies")
+load("//:3rd_party/go/deps.bzl", "go_dependencies")
 
-# gazelle:repository_macro deps.bzl%go_dependencies
+# gazelle:repository_macro 3rd_party/go/deps.bzl%go_dependencies
 go_dependencies()
 
 go_rules_dependencies()

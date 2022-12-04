@@ -10,11 +10,9 @@ go_library(
 
 go_binary(
     name = "day2",
-
     data = [
         "//files/day2:input.txt",
-        "//files/day2:test_input.txt"
-
+        "//files/day2:test_input.txt",
     ],
     embed = [":day2_lib"],
     visibility = ["//visibility:public"],

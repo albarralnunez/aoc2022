@@ -1,5 +1,11 @@
 package(default_visibility = ["//visibility:public"])
 
+exports_files([
+    "pyproject.toml",
+    "pytest.ini",
+])
+
+
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
 
 buildifier(
@@ -15,8 +21,8 @@ gazelle(name = "gazelle")
 gazelle(
     name = "gazelle-update-repos",
     args = [
-        "-from_file=go.mod",
-        "-to_macro=deps.bzl%go_dependencies",
+        "-from_file=3rd_party/go/go.mod",
+        "-to_macro=3rd_party/go/deps.bzl%go_dependencies",
         "-prune",
     ],
     command = "update-repos",

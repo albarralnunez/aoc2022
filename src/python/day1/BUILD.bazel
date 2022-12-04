@@ -1,0 +1,8 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
+
+py_binary(
+    name = "day1",
+    srcs = ["day1.py"],
+    legacy_create_init = False,
+    data = ["//files/day1:input.txt"],
+)
