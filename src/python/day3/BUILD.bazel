@@ -9,16 +9,15 @@ py_library(
 )
 
 py_binary(
-    legacy_create_init = False,
     name = "day3",
     srcs = ["day3.py"],
     data = ["//files/day3:input.txt"],
+    legacy_create_init = False,
 )
-
 
 pytest_test(
     name = "day3_test",
-    legacy_create_init = False,
     srcs = ["test.py"],
+    legacy_create_init = False,
     deps = [":day3_lib"],
 )
