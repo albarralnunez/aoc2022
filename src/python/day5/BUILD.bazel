@@ -3,10 +3,6 @@ package(default_visibility = ["//visibility:public"])
 load("//tools/pytest:defs.bzl", "pytest_test")
 load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
 
-py_library(
-    name = "day5_lib",
-    srcs = ["day3.py"],
-)
 
 py_binary(
     name = "day5",

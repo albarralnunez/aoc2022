@@ -1,0 +1,26 @@
+package(default_visibility = ["//visibility:public"])
+
+load("//tools/pytest:defs.bzl", "pytest_test")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
+
+py_library(
+    name = "day6_lib",
+    srcs = ["day6.py"],
+)
+
+py_binary(
+    name = "day6",
+    srcs = ["day6.py"],
+    data = [
+        "//files/day6:input.txt",
+    ],
+    legacy_create_init = False,
+)
+
+pytest_test(
+    name = "day6_test",
+    srcs = ["test.py"],
+    legacy_create_init = False,
+    deps = [":day6_lib"],
+)
+
