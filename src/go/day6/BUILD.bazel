@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "day6_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/albarralnunez/aoc2022/src/go/day6",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "day6",
+    embed = [":day6_lib"],
+    data = ["//files/day6:input.txt"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "day6_test",
+    srcs = ["main_test.go"],
+    embed = [":day6_lib"],
+)

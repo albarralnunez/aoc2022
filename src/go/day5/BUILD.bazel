@@ -12,7 +12,7 @@ go_binary(
     name = "day5",
     data = [
         "//files/day5:input.txt",
-        "//files/day5:test_input.txt"
+        "//files/day5:test_input.txt",
     ],
     embed = [":day5_lib"],
     visibility = ["//visibility:public"],

@@ -23,4 +23,3 @@ pytest_test(
     legacy_create_init = False,
     deps = [":day6_lib"],
 )
-
