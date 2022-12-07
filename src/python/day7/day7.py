@@ -52,9 +52,9 @@ class Dir:
 
 def read_dirs(f: IO) -> Dir:
     file_match = re.compile(r"^(\d+)\s([\w\.]+)")
-    f.readline()
-    dir = Dir(name="/")
-    root_dir = copy.copy(dir)
+    line = f.readline()
+    dir = Dir(name=line.strip()[-1])
+    root_dir = dir
     for line in f:
         clean_line = line.strip()
         file_line = file_match.match(clean_line)
