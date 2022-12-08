@@ -1,0 +1,13 @@
+load(
+    "@rules_haskell//haskell:defs.bzl",
+    "haskell_binary",
+)
+
+haskell_binary(
+    name = "day7",
+    srcs = [":Main.hs"],
+    deps = [
+        "//src/haskell:base",
+        "@stackage//:zlib"
+    ],
+)

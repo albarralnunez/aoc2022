@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+
+import click
+from devbox_cli.main import devbox_cli
+
+
+cli = click.CommandCollection(
+    sources=[devbox_cli]
+)
+
+
+if __name__ == "__main__":
+    cli()
