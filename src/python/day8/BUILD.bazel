@@ -1,0 +1,27 @@
+package(default_visibility = ["//visibility:public"])
+
+load("//tools/pytest:defs.bzl", "pytest_test")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
+
+py_library(
+    name = "day8_lib",
+    srcs = ["day8.py"],
+)
+
+py_binary(
+    name = "day8",
+    srcs = ["day8.py"],
+    data = [
+        "//files/day8:input.txt",
+        "//files/day8:test_input.txt",
+    ],
+    legacy_create_init = False,
+)
+
+pytest_test(
+    name = "day8_test",
+    srcs = ["test.py"],
+    legacy_create_init = False,
+    deps = [":day8_lib"],
+)
+
