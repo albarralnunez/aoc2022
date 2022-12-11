@@ -9,11 +9,7 @@ from termcolor import colored, cprint
 
 
 def highlight(text: str, color: str = "white", on_color: str = "on_blue"):
-    return colored(text, "white", "on_blue")
-
-
-def highlight_cursor(text: str, color: str = "white", on_color: str = "on_red"):
-    return colored(text, "white", "on_red")
+    return colored(text, color, on_color)
 
 
 def clear():
@@ -50,7 +46,7 @@ class Noop(Instruction):
 
 
 def initial_state_visualization() -> list[list[str]]:
-    return [["." for _ in range(40)] for _ in range(6)]
+    return [[" " for _ in range(40)] for _ in range(6)]
 
 
 @dataclass
@@ -74,7 +70,7 @@ class State:
     def __post_init__(self):
         if self.has_to_print():
             position = self.position_to_x_y(self.pointer)
-            self.visualization[position[1]][position[0]] = "#"
+            self.visualization[position[1]][position[0]] = highlight(" ", color="white", on_color="on_white")
 
     def has_to_print(self) -> bool:
         row = self.position_to_x_y(self.pointer)[1]
@@ -87,7 +83,11 @@ class State:
         matrix = copy.deepcopy(self.visualization)
         if debug is True:
             pointer = self.position_to_x_y(self.pointer)
-            matrix[pointer[1]][pointer[0]] = highlight_cursor(matrix[pointer[1]][pointer[0]])
+            matrix[pointer[1]][pointer[0]] = highlight(
+                matrix[pointer[1]][pointer[0]],
+                color="white",
+                on_color="on_red",
+            )
             row = self.position_to_x_y(self.pointer)[1]
             slice_pointer = self.register_x + row * 40
             sprint_0 = self.position_to_x_y(slice_pointer - 1)
@@ -160,13 +160,11 @@ def problem_1(input_path: Path) -> int:
 
 
 def problem_2(input_path: Path) -> Iterator[State]:
-    signal_strength = 0
     with open(input_path) as f:
         instructions = map(Instruction.from_str, f)
         cycles = generate_cycles(instructions)
         for c in cycles:
             yield c
-    return signal_strength
 
 
 def print_day_10(input_path: Path):
@@ -174,11 +172,14 @@ def print_day_10(input_path: Path):
     p2 = problem_2(input_path)
     for c in p2:
         clear()
-        print("*" * 40)
+        print(highlight(" " * 40, color="white", on_color="on_white"))
         print(f"Problem 1: {p1}")
         print("Problem 2:")
+        print(highlight(" " * 40, color="white", on_color="on_white"))
+        print()
         print(c.print(debug=True))
-        print("*" * 40)
+        print()
+        print(highlight(" " * 40, color="white", on_color="on_white"))
         sleep(0.1)
 
 
