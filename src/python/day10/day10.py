@@ -5,6 +5,15 @@ import math
 from os import system, name
 from time import sleep
 import copy
+from termcolor import colored, cprint
+
+
+def highlight(text: str, color: str = "white", on_color: str = "on_blue"):
+    return colored(text, "white", "on_blue")
+
+
+def highlight_cursor(text: str, color: str = "white", on_color: str = "on_red"):
+    return colored(text, "white", "on_red")
 
 
 def clear():
@@ -77,21 +86,18 @@ class State:
     def print(self, debug: bool = False) -> str:
         matrix = copy.deepcopy(self.visualization)
         if debug is True:
+            pointer = self.position_to_x_y(self.pointer)
+            matrix[pointer[1]][pointer[0]] = highlight_cursor(matrix[pointer[1]][pointer[0]])
             row = self.position_to_x_y(self.pointer)[1]
             slice_pointer = self.register_x + row * 40
             sprint_0 = self.position_to_x_y(slice_pointer - 1)
             sprit_1 = self.position_to_x_y(slice_pointer)
             spirit_2 = self.position_to_x_y(slice_pointer + 1)
-            if sprint_0[0] >= 0:
-                matrix[sprint_0[1]][sprint_0[0]] = "_"
-            matrix[sprit_1[1]][sprit_1[0]] = "_"
-            if spirit_2[0] <= 39:
-                matrix[spirit_2[1]][spirit_2[0]] = "_"
-            pointer = self.position_to_x_y(self.pointer)
-            if self.has_to_print():
-                matrix[pointer[1]][pointer[0]] = "0"
-            else:
-                matrix[pointer[1]][pointer[0]] = "x"
+            matrix[sprint_0[1]][sprint_0[0]] = highlight(matrix[sprint_0[1]][sprint_0[0]])
+            if sprit_1[0] <= 39 and sprit_1[1] <= 5:
+                matrix[sprit_1[1]][sprit_1[0]] = highlight(matrix[sprit_1[1]][sprit_1[0]])
+            if spirit_2[0] <= 39 and spirit_2[1] <= 5:
+                matrix[spirit_2[1]][spirit_2[0]] = highlight(matrix[spirit_2[1]][spirit_2[0]])
         repr = "\n".join(["".join(i) for i in matrix])
         return repr
 
@@ -171,9 +177,9 @@ def print_day_10(input_path: Path):
         print("*" * 40)
         print(f"Problem 1: {p1}")
         print("Problem 2:")
-        print(c)
-        print(c.print())
+        print(c.print(debug=True))
         print("*" * 40)
+        sleep(0.1)
 
 
 def main():

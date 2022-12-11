@@ -2,10 +2,14 @@ package(default_visibility = ["//visibility:public"])
 
 load("//tools/pytest:defs.bzl", "pytest_test")
 load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
+load("@py_deps//:requirements.bzl", "requirement")
 
 py_library(
     name = "day10_lib",
     srcs = ["day10.py"],
+    deps = [
+        requirement("termcolor"),
+    ]
 )
 
 py_binary(
@@ -14,6 +18,9 @@ py_binary(
     data = [
         "//files/day10:input.txt",
         "//files/day10:test_input.txt",
+    ],
+    deps = [
+        requirement("termcolor"),
     ],
     legacy_create_init = False,
 )

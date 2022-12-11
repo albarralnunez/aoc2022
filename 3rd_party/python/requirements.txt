@@ -57,6 +57,8 @@ pytest-black==0.3.12
     # via -r requirements.in
 pytest-mypy==0.10.2
     # via -r requirements.in
+termcolor==2.1.1
+    # via -r requirements.in
 toml==0.10.2
     # via pytest-black
 tomli==2.0.1
