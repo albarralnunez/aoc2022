@@ -1,0 +1,26 @@
+package(default_visibility = ["//visibility:public"])
+
+load("//tools/pytest:defs.bzl", "pytest_test")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+load("@py_deps//:requirements.bzl", "requirement")
+
+py_library(
+    name = "day12_lib",
+    srcs = ["day12.py"],
+    deps = [
+        requirement("termcolor"),
+    ]
+)
+
+py_binary(
+    name = "day12",
+    srcs = ["day12.py"],
+    data = [
+        "//files/day12:input.txt",
+        "//files/day12:test_input.txt",
+    ],
+    deps = [
+        ":day12_lib",
+    ],
+    legacy_create_init = False,
+)
