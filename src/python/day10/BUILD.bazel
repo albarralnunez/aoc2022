@@ -20,7 +20,7 @@ py_binary(
         "//files/day10:test_input.txt",
     ],
     deps = [
-        requirement("termcolor"),
+        ":day10_lib"
     ],
     legacy_create_init = False,
 )

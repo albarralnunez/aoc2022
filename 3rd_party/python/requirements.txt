@@ -32,6 +32,8 @@ mypy-extensions==0.4.3
     # via
     #   black
     #   mypy
+numpy==1.23.5
+    # via -r requirements.in
 packaging==21.3
     # via
     #   build

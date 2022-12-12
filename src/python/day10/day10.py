@@ -5,7 +5,7 @@ import math
 from os import system, name
 from time import sleep
 import copy
-from termcolor import colored, cprint
+from termcolor import colored
 
 
 def highlight(text: str, color: str = "white", on_color: str = "on_blue"):
@@ -70,7 +70,9 @@ class State:
     def __post_init__(self):
         if self.has_to_print():
             position = self.position_to_x_y(self.pointer)
-            self.visualization[position[1]][position[0]] = highlight(" ", color="white", on_color="on_white")
+            self.visualization[position[1]][position[0]] = highlight(
+                " ", color="white", on_color="on_white"
+            )
 
     def has_to_print(self) -> bool:
         row = self.position_to_x_y(self.pointer)[1]
@@ -93,11 +95,17 @@ class State:
             sprint_0 = self.position_to_x_y(slice_pointer - 1)
             sprit_1 = self.position_to_x_y(slice_pointer)
             spirit_2 = self.position_to_x_y(slice_pointer + 1)
-            matrix[sprint_0[1]][sprint_0[0]] = highlight(matrix[sprint_0[1]][sprint_0[0]])
+            matrix[sprint_0[1]][sprint_0[0]] = highlight(
+                matrix[sprint_0[1]][sprint_0[0]]
+            )
             if sprit_1[0] <= 39 and sprit_1[1] <= 5:
-                matrix[sprit_1[1]][sprit_1[0]] = highlight(matrix[sprit_1[1]][sprit_1[0]])
+                matrix[sprit_1[1]][sprit_1[0]] = highlight(
+                    matrix[sprit_1[1]][sprit_1[0]]
+                )
             if spirit_2[0] <= 39 and spirit_2[1] <= 5:
-                matrix[spirit_2[1]][spirit_2[0]] = highlight(matrix[spirit_2[1]][spirit_2[0]])
+                matrix[spirit_2[1]][spirit_2[0]] = highlight(
+                    matrix[spirit_2[1]][spirit_2[0]]
+                )
         repr = "\n".join(["".join(i) for i in matrix])
         return repr
 
