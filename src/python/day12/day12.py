@@ -1,11 +1,12 @@
 from termcolor import colored
-from collections import deque
 from pathlib import Path
 from dataclasses import dataclass
 from functools import cached_property
 from typing import Optional, Iterable
-from time import sleep
+from time import sleep, time
 from os import system, name
+from collections import defaultdict
+from queue import PriorityQueue
 
 
 Position = tuple[int, int]
@@ -90,6 +91,50 @@ class Terrain:
     def get_neighbors(self, v):
         return self.adjacent_list[v]
 
+    def dijkstra(self, start_node, target_node):
+        start_node = start_node
+        target_node = target_node
+
+        visited = set()
+        D = defaultdict(lambda: float('inf'))
+        D[start_node] = 0
+
+        pq = PriorityQueue()
+        pq.put((0, start_node))
+
+        parent = dict()
+        parent[start_node] = None
+        path_found = False
+        iteratrion = 0
+        while not pq.empty():
+            (dist, current_node) = pq.get()
+            if current_node == target_node:
+                path_found = True
+                break
+            visited.add(current_node)
+
+            for neighbour in self.get_neighbors(current_node):
+                if neighbour not in visited:
+                    old_cost = D[neighbour]
+                    new_cost = D[current_node] + 1
+                    if new_cost < old_cost:
+                        pq.put((new_cost, neighbour))
+                        D[neighbour] = new_cost
+                        parent[neighbour] = current_node
+            iteratrion += 1
+
+        path = []
+        if path_found:
+            path.append(target_node)
+            while True:
+                parent_node = parent[target_node]
+                if parent_node is None:
+                    break
+                path.append(parent_node)
+                target_node = parent_node
+            path.reverse()
+        return (path, iteratrion)
+
     def a_star_algorithm(self, start: Position, finish: Position)-> Optional[list[Position]]:
         # In this open_lst is a lisy of nodes which have been visited, but who's
         # neighbours haven't all been always inspected, It starts off with the start
@@ -112,12 +157,10 @@ class Terrain:
             n: Optional[Position] = None
 
             for v in open_lst:
-                # if n is None or self._eval(n, v, poo):
                 if n is None:
                     n = v
 
             if n is None:
-                print("Path does not exist!")
                 return None
 
             # if the current node is the stop
@@ -182,7 +225,8 @@ def debug(terrain: Terrain, path: list[Position]):
         clear() 
 
 def problem1(terrain: Terrain, debug: bool = False):
-    path = terrain.a_star_algorithm(terrain.starting_position, terrain.finish_position)
+    # path = terrain.a_star_algorithm(terrain.starting_position, terrain.finish_position)
+    path, _ = terrain.dijkstra(terrain.starting_position, terrain.finish_position)
     if debug:
         debug(terrain, path)
     return len(path) - 1
@@ -194,6 +238,16 @@ def problem2(terrain: Terrain):
         paths.append(path)
     return min(map(len, paths)) - 1
 
+def preformance_comparition(terrain: Terrain):
+    start_time = time()
+    for _ in range(100000):
+        terrain.a_star_algorithm(terrain.starting_position, terrain.finish_position)
+    print(f"A* algorithm took {time() - start_time} seconds")
+    start_time = time()
+    for _ in range(100000):
+        terrain.dijkstra(terrain.starting_position, terrain.finish_position)
+    print(f"Dijkstra algorithm took {time() - start_time} seconds")
+
 def main():
     input_path = Path("files/day12/test_input.txt")
     # input_path = Path("files/day12/input.txt")
@@ -202,6 +256,7 @@ def main():
     print(problem1(terrain))
     print(colored("Problem 2: ", "blue"))
     print(problem2(terrain))
+    preformance_comparition(terrain)
 
 if __name__ == "__main__":
     main()
